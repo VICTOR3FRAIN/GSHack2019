@@ -1,9 +1,9 @@
 <resources>
     <string name="login">Iniciar sesión</string>
     <string name="toast_welcome">Hola, %1$s.</string>
-    <string name="unable_to_connect">Falta conexión internet</string>
+    <string name="unable_to_connect">No hay conexión con internet</string>
     <string name="basic">Primario</string>
-    <string name="username">Nombre de usuario</string>
+    <string name="username">Cliente</string>
     <string name="progress_message_login">Acceder</string>
     <string name="progress_message_loading">Carga</string>
     <string name="password">Contraseña</string>
@@ -14,7 +14,7 @@
     <string name="recent_transactions">Transacciones recientes</string>
     <string name="charges">Honorarios</string>
     <string name="questionnaire">Cuestionario</string>
-    <string name="about_us">Sobre nosotros</string>
+    <string name="about_us">Nosotros</string>
     <string name="saving_account_details">Guardar detalles de la cuenta</string>
     <string name="savings_account">Cuenta de ahorros</string>
     <string name="error_loan_account_details_loading">Error al cargar la información de la cuenta de crédito</string>
@@ -245,7 +245,7 @@
     <string name="none">Nada</string>
     <string name="all">Todos</string>
     <string name="four_weeks">4 semanas</string>
-    <string name="three_months">Tres meses</string>
+    <string name="three_months">3 meses</string>
     <string name="six_months">6 meses</string>
     <string name="filter">Filtro</string>
     <string name="start_date">Fecha de inicio</string>
