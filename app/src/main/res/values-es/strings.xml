@@ -1,6 +1,7 @@
 <resources>
     <string name="login">Iniciar sesión</string>
     <string name="selfie_login">Iniciar Sesión con Selfie</string>
+    <string name="take_selfie">Tomar Selfie</string>
     <string name="toast_welcome">Hola, %1$s.</string>
     <string name="unable_to_connect">No hay conexión con internet</string>
     <string name="basic">Primario</string>
@@ -106,7 +107,7 @@
     <string name="matured">Maduro</string>
     <string name="create_an_account">Crear una cuenta</string>
     <string name="first_name">Nombre</string>
-    <string name="last_name">Nombre</string>
+    <string name="last_name">Apellido</string>
     <string name="phone_number">Numero de telefono</string>
     <string name="register">Registro</string>
     <string name="request_id">Solicitud de identificación</string>
