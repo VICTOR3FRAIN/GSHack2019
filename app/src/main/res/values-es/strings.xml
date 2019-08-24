@@ -1,5 +1,6 @@
 <resources>
     <string name="login">Iniciar sesión</string>
+    <string name="selfie_login">Iniciar Sesión con Selfie</string>
     <string name="toast_welcome">Hola, %1$s.</string>
     <string name="unable_to_connect">No hay conexión con internet</string>
     <string name="basic">Primario</string>
