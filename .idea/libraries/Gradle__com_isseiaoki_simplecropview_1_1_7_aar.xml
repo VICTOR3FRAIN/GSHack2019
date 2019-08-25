@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.isseiaoki:simplecropview:1.1.7@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8b45479d31bffe696078ea5902511e9/simplecropview-1.1.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8b45479d31bffe696078ea5902511e9/simplecropview-1.1.7/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.isseiaoki/simplecropview/1.1.7/78484406668b8d2198a415e43d1142b7c36c7007/simplecropview-1.1.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.isseiaoki/simplecropview/1.1.7/efc32595a5c8c0c110fc4d226ee3431bdce132ba/simplecropview-1.1.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

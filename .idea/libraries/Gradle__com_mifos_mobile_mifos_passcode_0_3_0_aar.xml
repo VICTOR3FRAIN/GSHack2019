@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mifos.mobile:mifos-passcode:0.3.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165819c7c452516468bf7f2c62291fb7/jetified-mifos-passcode-0.3.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165819c7c452516468bf7f2c62291fb7/jetified-mifos-passcode-0.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165819c7c452516468bf7f2c62291fb7/jetified-mifos-passcode-0.3.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mifos.mobile/mifos-passcode/0.3.0/4c2272f502eb7bed4d29aa526ec046420ec638fb/mifos-passcode-0.3.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mifos.mobile/mifos-passcode/0.3.0/92ce1b5200e2839c50e0cb400b7acd767a3409da/mifos-passcode-0.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
