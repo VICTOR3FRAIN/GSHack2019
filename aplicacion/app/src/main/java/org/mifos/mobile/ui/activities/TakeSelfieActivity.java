@@ -4,209 +4,101 @@ import android.os.Bundle;
 
 import org.mifos.mobile.R;
 import org.mifos.mobile.ui.activities.base.BaseActivity;
+import org.mifos.mobile.ui.activities.AddPersonPreviewActivity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.view.SurfaceView;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.File;
-import java.util.Date;
-import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.Helpers.CustomCameraView;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
-import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
-import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
-import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 
-public class TakeSelfieActivity extends BaseActivity implements CameraBridgeViewBase.CvCameraViewListener2{
-
-    public static final int TIME = 0;
-    public static final int MANUALLY = 1;
-    private CustomCameraView mAddPersonView;
-    // The timerDiff defines after how many milliseconds a picture is taken
-    private long timerDiff;
-    private long lastTime;
-    private PreProcessorFactory ppF;
-    private FileHelper fh;
-    private String folder;
-    private String subfolder;
-    private String name;
-    private int total;
-    private int numberOfPictures;
-    private int method;
-    private ImageButton btn_Capture;
-    private boolean capturePressed;
-    private boolean front_camera;
-    private boolean night_portrait;
-    private int exposure_compensation;
-
-    static {
-        if (!OpenCVLoader.initDebug()) {
-            // Handle initialization error
-        }
-    }
+public class TakeSelfieActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_person_preview);
+        setContentView(R.layout.activity_add_person);
 
-        Intent intent = getIntent();
-        folder = intent.getStringExtra("Folder");
-        if(folder.equals("Test")){
-            subfolder = intent.getStringExtra("Subfolder");
-        }
-        name = intent.getStringExtra("Name");
-        method = intent.getIntExtra("Method", 0);
-        capturePressed = false;
-        if(method == MANUALLY){
-            btn_Capture = (ImageButton)findViewById(R.id.btn_Capture);
-            btn_Capture.setVisibility(View.VISIBLE);
-            btn_Capture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    capturePressed = true;
+        /*final ToggleButton btnTrainingTest = (ToggleButton)findViewById(R.id.btnTrainingTest);
+        final ToggleButton btnReferenceDeviation = (ToggleButton)findViewById(R.id.btnReferenceDeviation);
+        final ToggleButton btnTimeManually = (ToggleButton)findViewById(R.id.btnTimeManually);
+        btnTrainingTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnTrainingTest.isChecked()){
+                    btnReferenceDeviation.setEnabled(true);
+                } else {
+                    btnReferenceDeviation.setEnabled(false);
                 }
-            });
-        }
+            }
+        });
 
-        fh = new FileHelper();
-        total = 0;
-        lastTime = new Date().getTime();
+         */
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        timerDiff = Integer.valueOf(sharedPrefs.getString("key_timerDiff", "500"));
+        //Button btn_Start = (Button)findViewById(R.id.btn_Start);
+        //btn_Start.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+            //public void onClick(View v) {
+                //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-        mAddPersonView = (CustomCameraView) findViewById(R.id.AddPersonPreview);
-        // Use camera which is selected in settings
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        front_camera = sharedPref.getBoolean("key_front_camera", true);
+                String name = "selfservice";//txt_Name.getText().toString();
+                Intent intent = new Intent(this, AddPersonPreviewActivity.class);
+                intent.putExtra("Name", name);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        numberOfPictures = Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
+                //if(btnTimeManually.isChecked()){
+                  //  intent.putExtra("Method", AddPersonPreviewActivity.MANUALLY);
+                //} else {
+                    intent.putExtra("Method", AddPersonPreviewActivity.TIME);
+                //}
 
-        night_portrait = sharedPref.getBoolean("key_night_portrait", false);
-        exposure_compensation = Integer.valueOf(sharedPref.getString("key_exposure_compensation", "50"));
-
-        if (front_camera){
-            mAddPersonView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
-        } else {
-            mAddPersonView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_BACK);
-        }
-        mAddPersonView.setVisibility(SurfaceView.VISIBLE);
-        mAddPersonView.setCvCameraViewListener(this);
-
-        int maxCameraViewWidth = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640"));
-        int maxCameraViewHeight = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480"));
-        mAddPersonView.setMaxFrameSize(maxCameraViewWidth, maxCameraViewHeight);
-    }
-
-    @Override
-    public void onCameraViewStarted(int width, int height) {
-
-        if (night_portrait) {
-            mAddPersonView.setNightPortrait();
-        }
-
-        if (exposure_compensation != 50 && 0 <= exposure_compensation && exposure_compensation <= 100)
-            mAddPersonView.setExposure(exposure_compensation);
-    }
-
-    @Override
-    public void onCameraViewStopped() {
-
-    }
-
-    @Override
-    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        Mat imgRgba = inputFrame.rgba();
-        Mat imgCopy = new Mat();
-        imgRgba.copyTo(imgCopy);
-        // Selfie / Mirror mode
-        if(front_camera){
-            Core.flip(imgRgba,imgRgba,1);
-        }
-
-        long time = new Date().getTime();
-        if((method == MANUALLY) || (method == TIME) && (lastTime + timerDiff < time)){
-            lastTime = time;
-
-            // Check that only 1 face is found. Skip if any or more than 1 are found.
-            List<Mat> images = ppF.getCroppedImage(imgCopy);
-            if (images != null && images.size() == 1){
-                Mat img = images.get(0);
-                if(img != null){
-                    Rect[] faces = ppF.getFacesForRecognition();
-                    //Only proceed if 1 face has been detected, ignore if 0 or more than 1 face have been detected
-                    if((faces != null) && (faces.length == 1)){
-                        faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
-                        if(((method == MANUALLY) && capturePressed) || (method == TIME)){
-                            MatName m = new MatName(name + "_" + total, img);
-                            if (folder.equals("Test")) {
-                                String wholeFolderPath = fh.TEST_PATH + name + "/" + subfolder;
-                                new File(wholeFolderPath).mkdirs();
-                                fh.saveMatToImage(m, wholeFolderPath + "/");
-                            } else {
-                                String wholeFolderPath = fh.TRAINING_PATH + name;
-                                new File(wholeFolderPath).mkdirs();
-                                fh.saveMatToImage(m, wholeFolderPath + "/");
-                            }
-
-                            for(int i = 0; i<faces.length; i++){
-                                MatOperation.drawRectangleAndLabelOnPreview(imgRgba, faces[i], String.valueOf(total), front_camera);
-                            }
-
-                            total++;
-
-                            // Stop after numberOfPictures (settings option)
-                            if(total >= numberOfPictures){
-                                Intent intent = new Intent(getApplicationContext(), TakeSelfieActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
-                            capturePressed = false;
-                        } else {
-                            for(int i = 0; i<faces.length; i++){
-                                MatOperation.drawRectangleOnPreview(imgRgba, faces[i], front_camera);
-                            }
-                        }
+                //if(btnTrainingTest.isChecked()){
+                    // Add photos to "Test" folder
+                    if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
+                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        intent.putExtra("Folder", "Test");
+                        //if(btnReferenceDeviation.isChecked()){
+                            intent.putExtra("Subfolder", "deviation");
+                        //} else {
+                          //  intent.putExtra("Subfolder", "reference");
+                        //}
+                        startActivity(intent);
                     }
+                /*} else {
+                    // Add photos to "Training" folder
+
+                    if(isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
+                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        intent.putExtra("Folder", "Training");
+                        startActivity(intent);
+                    }
+                }*/
+            //}
+        //});
+    }
+
+    private boolean isNameAlreadyUsed(File[] list, String name){
+        boolean used = false;
+        if(list != null && list.length > 0){
+            for(File person : list){
+                // The last token is the name --> Folder name = Person name
+                String[] tokens = person.getAbsolutePath().split("/");
+                final String foldername = tokens[tokens.length-1];
+                if(foldername.equals(name)){
+                    used = true;
+                    break;
                 }
             }
         }
-
-        return imgRgba;
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        ppF = new PreProcessorFactory(this);
-        mAddPersonView.enableView();
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        if (mAddPersonView != null)
-            mAddPersonView.disableView();
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        if (mAddPersonView != null)
-            mAddPersonView.disableView();
+        return used;
     }
 }

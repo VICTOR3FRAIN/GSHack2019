@@ -1,11 +1,13 @@
 package org.mifos.mobile.presenters;
 
 import android.content.Context;
+import android.content.Intent;
 
 import org.mifos.mobile.api.DataManager;
 import org.mifos.mobile.injection.ApplicationContext;
 import org.mifos.mobile.models.register.RegisterPayload;
 import org.mifos.mobile.presenters.base.BasePresenter;
+import org.mifos.mobile.ui.activities.HomeActivity;
 import org.mifos.mobile.ui.views.RegistrationView;
 import org.mifos.mobile.utils.MFErrorParser;
 

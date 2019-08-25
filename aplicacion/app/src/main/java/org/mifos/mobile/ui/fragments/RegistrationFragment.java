@@ -1,5 +1,6 @@
 package org.mifos.mobile.ui.fragments;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,16 +18,23 @@ import android.widget.TextView;
 import org.mifos.mobile.R;
 import org.mifos.mobile.models.register.RegisterPayload;
 import org.mifos.mobile.presenters.RegistrationPresenter;
+import org.mifos.mobile.ui.activities.LoginActivity;
+import org.mifos.mobile.ui.activities.RegistrationActivity;
 import org.mifos.mobile.ui.activities.base.BaseActivity;
 import org.mifos.mobile.ui.fragments.base.BaseFragment;
 import org.mifos.mobile.ui.views.RegistrationView;
 import org.mifos.mobile.utils.Network;
 import org.mifos.mobile.utils.PasswordStrength;
 import org.mifos.mobile.utils.Toaster;
+import org.mifos.mobile.ui.activities.TakeSelfieActivity;
+
 
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -179,6 +187,14 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
                 Toaster.show(rootView, getString(R.string.no_internet_connection));
             }
         }
+
+    }
+
+    @OnClick(R.id.btn_take_selfie)
+    public void takeSelfieClicked() {
+
+        //Toaster.show(rootView, "HOLA");
+        startActivity(new Intent(getActivity(), TakeSelfieActivity.class));
 
     }
 
