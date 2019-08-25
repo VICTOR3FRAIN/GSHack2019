@@ -23,7 +23,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import mx.conserva.mobile.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.R;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 

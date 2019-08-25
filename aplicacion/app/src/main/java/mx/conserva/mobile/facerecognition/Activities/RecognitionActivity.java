@@ -35,14 +35,14 @@ import org.opencv.core.Rect;
 import java.io.File;
 import java.util.List;
 
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.CustomCameraView;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.FileHelper;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatOperation;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.PreferencesHelper;
-import mx.conserva.mobile.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
-import mx.conserva.mobile.facerecognition.R;
-import mx.conserva.mobile.facerecognitionlibrary.Recognition.Recognition;
-import mx.conserva.mobile.facerecognitionlibrary.Recognition.RecognitionFactory;
+import ch.zhaw.facerecognitionlibrary.Helpers.CustomCameraView;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
+import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
+import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.Recognition.Recognition;
+import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
 
 public class RecognitionActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private CustomCameraView mRecognitionView;

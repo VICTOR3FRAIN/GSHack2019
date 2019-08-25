@@ -33,13 +33,13 @@ import org.opencv.imgproc.Imgproc;
 import java.io.File;
 import java.util.List;
 
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.FileHelper;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatName;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.PreferencesHelper;
-import mx.conserva.mobile.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
-import mx.conserva.mobile.facerecognition.R;
-import mx.conserva.mobile.facerecognitionlibrary.Recognition.Recognition;
-import mx.conserva.mobile.facerecognitionlibrary.Recognition.RecognitionFactory;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
+import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
+import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.Recognition.Recognition;
+import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
 
 public class TrainingActivity extends Activity {
     private static final String TAG = "Training";

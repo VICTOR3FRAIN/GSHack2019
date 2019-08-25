@@ -27,8 +27,8 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.FileHelper;
-import mx.conserva.mobile.facerecognition.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.R;
 
 public class MainActivity extends Activity {
 

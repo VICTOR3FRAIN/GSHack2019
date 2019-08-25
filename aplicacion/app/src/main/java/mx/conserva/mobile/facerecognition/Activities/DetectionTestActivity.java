@@ -21,12 +21,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import mx.conserva.mobile.facerecognition.R;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.FileHelper;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatName;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatOperation;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.PreferencesHelper;
-import mx.conserva.mobile.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
+import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
+import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 
 public class DetectionTestActivity extends AppCompatActivity {
     private static final String RESULT_NEGATIVE = "negative";

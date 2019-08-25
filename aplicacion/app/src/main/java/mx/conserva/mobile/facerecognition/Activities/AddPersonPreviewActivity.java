@@ -34,12 +34,12 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.CustomCameraView;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.FileHelper;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatName;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatOperation;
-import mx.conserva.mobile.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
-import mx.conserva.mobile.facerecognition.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.CustomCameraView;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
+import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
+import ch.zhaw.facerecognitionlibrary.R;
 
 public class AddPersonPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
     public static final int TIME = 0;

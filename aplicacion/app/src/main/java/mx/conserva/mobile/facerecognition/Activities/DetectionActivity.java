@@ -16,10 +16,10 @@ import org.opencv.core.Rect;
 
 import java.util.List;
 
-import mx.conserva.mobile.facerecognition.R;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.CustomCameraView;
-import mx.conserva.mobile.facerecognitionlibrary.Helpers.MatOperation;
-import mx.conserva.mobile.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
+import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.CustomCameraView;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
+import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 
 public class DetectionActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private boolean front_camera;
