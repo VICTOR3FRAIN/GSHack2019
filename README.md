@@ -4,5 +4,5 @@
 #Documentación
 #Aplicación
 
-
+Core - https://github.com/VICTOR3FRAIN/gshack_core
 
