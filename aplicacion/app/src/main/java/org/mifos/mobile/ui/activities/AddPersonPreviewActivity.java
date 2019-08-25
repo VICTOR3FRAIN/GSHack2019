@@ -80,7 +80,7 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         name = intent.getStringExtra("Name");
         method = intent.getIntExtra("Method", 0);
         capturePressed = false;
-        if(method == MANUALLY){
+        /*if(method == MANUALLY){
             btn_Capture = (ImageButton)findViewById(R.id.btn_Capture);
             btn_Capture.setVisibility(View.VISIBLE);
             btn_Capture.setOnClickListener(new View.OnClickListener() {
@@ -89,24 +89,24 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
                     capturePressed = true;
                 }
             });
-        }
+        }*/
 
         fh = new FileHelper();
         total = 0;
         lastTime = new Date().getTime();
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        timerDiff = Integer.valueOf(sharedPrefs.getString("key_timerDiff", "500"));
+        //SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        timerDiff = 500; //Integer.valueOf("500");
 
         mAddPersonView = (CustomCameraView) findViewById(R.id.AddPersonPreview);
         // Use camera which is selected in settings
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        front_camera = sharedPref.getBoolean("key_front_camera", true);
+        //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        front_camera = true; //sharedPref.getBoolean("key_front_camera", true);
 
-        numberOfPictures = Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
+        numberOfPictures = 100;//Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
 
-        night_portrait = sharedPref.getBoolean("key_night_portrait", false);
-        exposure_compensation = Integer.valueOf(sharedPref.getString("key_exposure_compensation", "50"));
+        night_portrait = false; //sharedPref.getBoolean("key_night_portrait", false);
+        exposure_compensation = 50;//Integer.valueOf(sharedPref.getString("key_exposure_compensation", "50"));
 
         if (front_camera){
             mAddPersonView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
@@ -116,8 +116,8 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         mAddPersonView.setVisibility(SurfaceView.VISIBLE);
         mAddPersonView.setCvCameraViewListener(this);
 
-        int maxCameraViewWidth = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640"));
-        int maxCameraViewHeight = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480"));
+        int maxCameraViewWidth = 640;//Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640"));
+        int maxCameraViewHeight = 480;//Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480"));
         mAddPersonView.setMaxFrameSize(maxCameraViewWidth, maxCameraViewHeight);
     }
 
@@ -148,7 +148,7 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         }
 
         long time = new Date().getTime();
-        if((method == MANUALLY) || (method == TIME) && (lastTime + timerDiff < time)){
+        if((method == TIME) && (lastTime + timerDiff < time)){
             lastTime = time;
 
             // Check that only 1 face is found. Skip if any or more than 1 are found.
