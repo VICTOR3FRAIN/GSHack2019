@@ -71,6 +71,8 @@ android {
 
 dependencies {
 
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$rootProject.dbflowVersion"
@@ -151,5 +153,12 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.rulesVersion"
+
+    implementation("ch.zhaw:facerecognitionlibrary:1.5.4")
+            {
+                exclude group: 'com.android.support'
+                exclude module: 'appcompat-v7'
+                exclude module: 'support-v4'
+            }
 }
 apply plugin: 'com.google.gms.google-services'

@@ -5,6 +5,8 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url  "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library" }
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -23,6 +25,8 @@ allprojects {
         jcenter()
         maven { url "https://www.jitpack.io" }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url  "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library" }
+        maven { url 'https://jitpack.io' }
     }
 }
 
