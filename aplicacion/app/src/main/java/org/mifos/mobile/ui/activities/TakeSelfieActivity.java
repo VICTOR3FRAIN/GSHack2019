@@ -2,7 +2,7 @@ package org.mifos.mobile.ui.activities;
 
 import android.os.Bundle;
 
-//import org.mifos.mobile.R;
+import org.mifos.mobile.R;
 import org.mifos.mobile.ui.activities.base.BaseActivity;
 
 import android.content.Intent;
@@ -27,7 +27,6 @@ import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
-import ch.zhaw.facerecognitionlibrary.R;
 
 public class TakeSelfieActivity extends BaseActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
