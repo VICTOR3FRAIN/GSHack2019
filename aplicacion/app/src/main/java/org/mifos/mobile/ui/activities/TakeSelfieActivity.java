@@ -48,7 +48,7 @@ public class TakeSelfieActivity extends BaseActivity {
             //public void onClick(View v) {
                 //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-                String name = "selfservice";//txt_Name.getText().toString();
+                String name = "selfservice4";//txt_Name.getText().toString();
                 Intent intent = new Intent(this, AddPersonPreviewActivity.class);
                 intent.putExtra("Name", name);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

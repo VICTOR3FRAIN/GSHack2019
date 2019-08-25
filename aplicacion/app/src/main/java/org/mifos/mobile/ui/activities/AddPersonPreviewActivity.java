@@ -103,7 +103,7 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         front_camera = true; //sharedPref.getBoolean("key_front_camera", true);
 
-        numberOfPictures = 100;//Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
+        numberOfPictures = 10;//Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
 
         night_portrait = false; //sharedPref.getBoolean("key_night_portrait", false);
         exposure_compensation = 50;//Integer.valueOf(sharedPref.getString("key_exposure_compensation", "50"));
