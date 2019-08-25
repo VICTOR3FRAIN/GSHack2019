@@ -192,9 +192,9 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 
     @OnClick(R.id.btn_take_selfie)
     public void takeSelfieClicked() {
-
-        //Toaster.show(rootView, "HOLA");
-        startActivity(new Intent(getActivity(), TakeSelfieActivity.class));
+        Intent myIntent = new Intent(getActivity(), TakeSelfieActivity.class);
+        myIntent.putExtra("name", etUsername.getText().toString()); //Optional parameters
+        startActivity(myIntent);
 
     }
 
