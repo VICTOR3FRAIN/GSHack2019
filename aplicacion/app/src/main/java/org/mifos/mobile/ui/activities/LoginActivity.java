@@ -149,8 +149,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnClick(R.id.btn_login_selfie)
     public void onLoginSelfieClicked() {
         if (Network.isConnected(this)) {
-            Toaster.show(llLogin, "TOMANDO SELFIE");
+            //Toaster.show(llLogin, "TOMANDO SELFIE");
             //loginPresenter.login(username, password);
+            startActivity(new Intent(this, TakeSelfieActivity.class));
         } else {
             Toaster.show(llLogin, getString(R.string.no_internet_connection));
         }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import java.util.Date;
 
 import java.io.File;
 
@@ -48,7 +49,7 @@ public class TakeSelfieActivity extends BaseActivity {
             //public void onClick(View v) {
                 //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-                String name = "selfservice5";//txt_Name.getText().toString();
+                String name = "selfservice31";//+Math.random();//txt_Name.getText().toString();
                 Intent intent = new Intent(this, AddPersonPreviewActivity.class);
                 intent.putExtra("Name", name);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -62,6 +63,7 @@ public class TakeSelfieActivity extends BaseActivity {
                 //if(btnTrainingTest.isChecked()){
                     // Add photos to "Test" folder
                     if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
+
                         Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
                     } else {
                         intent.putExtra("Folder", "Test");

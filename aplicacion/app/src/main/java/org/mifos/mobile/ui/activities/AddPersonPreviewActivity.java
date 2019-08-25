@@ -35,9 +35,23 @@ import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 
-import java.io.File;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.widget.TextView;
 
-import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
+
+import ch.zhaw.facerecognitionlibrary.Recognition.Recognition;
+import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
+
+import 	android.util.Log;
 
 public class AddPersonPreviewActivity extends BaseActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
@@ -61,6 +75,10 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
     private boolean night_portrait;
     private int exposure_compensation;
 
+    private static final String TAG = "Training";
+    TextView progress;
+    Thread thread;
+
     static {
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
@@ -70,6 +88,9 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //addPreferencesFromResource(R.xml.preferences);
+
         setContentView(R.layout.activity_add_person_preview);
 
         Intent intent = getIntent();
@@ -100,7 +121,7 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
 
         mAddPersonView = (CustomCameraView) findViewById(R.id.AddPersonPreview);
         // Use camera which is selected in settings
-        //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         front_camera = true; //sharedPref.getBoolean("key_front_camera", true);
 
         numberOfPictures = 10;//Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100"));
@@ -144,6 +165,7 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         imgRgba.copyTo(imgCopy);
         // Selfie / Mirror mode
         if(front_camera){
+            Log.d(TAG,"Selfie / Mirror mode");
             Core.flip(imgRgba,imgRgba,1);
         }
 
@@ -151,13 +173,13 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         if((method == TIME) && (lastTime + timerDiff < time)){
             lastTime = time;
 
-            // Check that only 1 face is found. Skip if any or more than 1 are found.
+            Log.d(TAG,"Check that only 1 face is found. Skip if any or more than 1 are found.");
             List<Mat> images = ppF.getCroppedImage(imgCopy);
             if (images != null && images.size() == 1){
                 Mat img = images.get(0);
                 if(img != null){
                     Rect[] faces = ppF.getFacesForRecognition();
-                    //Only proceed if 1 face has been detected, ignore if 0 or more than 1 face have been detected
+                    Log.d(TAG,"Only proceed if 1 face has been detected, ignore if 0 or more than 1 face have been detected");
                     if((faces != null) && (faces.length == 1)){
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
@@ -178,11 +200,82 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
 
                             total++;
 
-                            // Stop after numberOfPictures (settings option)
+                            Log.d(TAG,"Stop after numberOfPictures (settings option)");
                             if(total >= numberOfPictures){
-                                Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                                //selfieTraining();
+                                /*Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
+                                startActivity(intent);*/
+                                PreProcessorFactory ppF = new PreProcessorFactory(getApplicationContext());
+                                PreferencesHelper preferencesHelper = new PreferencesHelper(getApplicationContext());
+
+                                String algorithm = "Eigenfaces with NN";//preferencesHelper.getClassificationMethod();
+
+                                FileHelper fileHelper = new FileHelper();
+                                fileHelper.createDataFolderIfNotExsiting();
+                                final File[] persons = fileHelper.getTrainingList();
+                                if (persons.length > 0) {
+                                    Recognition rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.TRAINING, algorithm);
+                                    for (File person : persons) {
+                                        if (person.isDirectory()){
+                                            File[] files = person.listFiles();
+                                            int counter = 1;
+                                            for (File file : files) {
+                                                if (FileHelper.isFileAnImage(file)){
+                                                    Mat imgRgb = Imgcodecs.imread(file.getAbsolutePath());
+                                                    Imgproc.cvtColor(imgRgb, imgRgb, Imgproc.COLOR_BGRA2RGBA);
+                                                    Mat processedImage = new Mat();
+                                                    imgRgb.copyTo(processedImage);
+                                                    List<Mat> images2 = ppF.getProcessedImage(processedImage, PreProcessorFactory.PreprocessingMode.RECOGNITION);
+                                                    if (images2 == null || images2.size() > 1) {
+                                                        // More than 1 face detected --> cannot use this file for training
+                                                        continue;
+                                                    } else {
+                                                        processedImage = images2.get(0);
+                                                    }
+                                                    if (processedImage.empty()) {
+                                                        continue;
+                                                    }
+                                                    // The last token is the name --> Folder name = Person name
+                                                    String[] tokens = file.getParent().split("/");
+                                                    final String name = tokens[tokens.length - 1];
+
+                                                    MatName m2 = new MatName("processedImage", processedImage);
+                                                    fileHelper.saveMatToImage(m2, FileHelper.DATA_PATH);
+                                                    Log.d(TAG,"NOMBRE: " +name);
+                                                    rec.addImage(processedImage, name, false);
+
+//                                      fileHelper.saveCroppedImage(imgRgb, ppF, file, name, counter);
+
+                                                    // Update screen to show the progress
+                                                    final int counterPost = counter;
+                                                    final int filesLength = files.length;
+                                        /*progress.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progress.append("Image " + counterPost + " of " + filesLength + " from " + name + " imported.\n");
+                                            }
+                                        });*/
+
+                                                    //counter++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    final Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    //startActivity(intent);
+                                    //final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    if (rec.train()) {
+                                        intent.putExtra("training", "Training successful");
+                                    } else {
+                                        intent.putExtra("training", "Training failed");
+                                    }
+
+                                    startActivity(intent);
+
+                                }
                             }
                             capturePressed = false;
                         } else {
@@ -219,5 +312,87 @@ public class AddPersonPreviewActivity extends BaseActivity implements CameraBrid
         super.onDestroy();
         if (mAddPersonView != null)
             mAddPersonView.disableView();
+    }
+
+
+    public void selfieTraining(){
+
+                    PreProcessorFactory ppF = new PreProcessorFactory(getApplicationContext());
+                    PreferencesHelper preferencesHelper = new PreferencesHelper(getApplicationContext());
+
+                    String algorithm = "Eigenfaces with NN";//preferencesHelper.getClassificationMethod();
+
+                    FileHelper fileHelper = new FileHelper();
+                    fileHelper.createDataFolderIfNotExsiting();
+                    final File[] persons = fileHelper.getTrainingList();
+                    if (persons.length > 0) {
+                        Recognition rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.TRAINING, algorithm);
+                        for (File person : persons) {
+                            if (person.isDirectory()){
+                                File[] files = person.listFiles();
+                                int counter = 1;
+                                for (File file : files) {
+                                    if (FileHelper.isFileAnImage(file)){
+                                        Mat imgRgb = Imgcodecs.imread(file.getAbsolutePath());
+                                        Imgproc.cvtColor(imgRgb, imgRgb, Imgproc.COLOR_BGRA2RGBA);
+                                        Mat processedImage = new Mat();
+                                        imgRgb.copyTo(processedImage);
+                                        List<Mat> images = ppF.getProcessedImage(processedImage, PreProcessorFactory.PreprocessingMode.RECOGNITION);
+                                        if (images == null || images.size() > 1) {
+                                            // More than 1 face detected --> cannot use this file for training
+                                            continue;
+                                        } else {
+                                            processedImage = images.get(0);
+                                        }
+                                        if (processedImage.empty()) {
+                                            continue;
+                                        }
+                                        // The last token is the name --> Folder name = Person name
+                                        String[] tokens = file.getParent().split("/");
+                                        final String name = tokens[tokens.length - 1];
+
+                                        MatName m = new MatName("processedImage", processedImage);
+                                        fileHelper.saveMatToImage(m, FileHelper.DATA_PATH);
+
+                                        rec.addImage(processedImage, name, false);
+
+//                                      fileHelper.saveCroppedImage(imgRgb, ppF, file, name, counter);
+
+                                        // Update screen to show the progress
+                                        final int counterPost = counter;
+                                        final int filesLength = files.length;
+                                        /*progress.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progress.append("Image " + counterPost + " of " + filesLength + " from " + name + " imported.\n");
+                                            }
+                                        });*/
+
+                                        //counter++;
+                                    }
+                                }
+                            }
+                        }
+                        final Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //startActivity(intent);
+                        //final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        if (rec.train()) {
+                            intent.putExtra("training", "Training successful");
+                        } else {
+                            intent.putExtra("training", "Training failed");
+                        }
+
+                        startActivity(intent);
+
+                    }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        thread.interrupt();
     }
 }
