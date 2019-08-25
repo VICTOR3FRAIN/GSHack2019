@@ -74,6 +74,14 @@
                   android:windowSoftInputMode="adjustResize"/>
 
         <activity android:configChanges="orientation|screenSize"
+            android:name="org.mifos.mobile.ui.activities.TakeSelfieActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:configChanges="orientation|screenSize"
+            android:name="org.mifos.mobile.ui.activities.CompareSelfieActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:configChanges="orientation|screenSize"
                   android:name="org.mifos.mobile.ui.activities.LoanApplicationActivity"
                   android:windowSoftInputMode="adjustResize"/>
 
