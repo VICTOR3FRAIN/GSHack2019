@@ -84,6 +84,8 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/CustomActivityThemeNoActionBar"
             android:name="org.mifos.mobile.ui.activities.CompareSelfieActivity"
             android:windowSoftInputMode="adjustResize"/>
 
