@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.therajanmaurya:Sweet-Error:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c2cfdf874df3f0f7b542d37a9b4c730d/jetified-Sweet-Error-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c2cfdf874df3f0f7b542d37a9b4c730d/jetified-Sweet-Error-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/59d4d292e78dc4323e39fec30ba3c0f7/jetified-Sweet-Error-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/59d4d292e78dc4323e39fec30ba3c0f7/jetified-Sweet-Error-1.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.therajanmaurya/Sweet-Error/1.0.0/67a568c5e54be796edb5da79e2f815754d0777a/Sweet-Error-1.0.0-javadoc.jar!/" />

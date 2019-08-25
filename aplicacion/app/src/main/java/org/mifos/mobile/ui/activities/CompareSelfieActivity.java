@@ -159,6 +159,7 @@ public class CompareSelfieActivity extends BaseActivity implements CameraBridgeV
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            Log.d(TAG,"SE DETECTO");
                             progressBar.setVisibility(View.GONE);
                         }
                     });

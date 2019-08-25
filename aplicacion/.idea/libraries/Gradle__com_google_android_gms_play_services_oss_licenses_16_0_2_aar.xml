@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-oss-licenses:16.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a584d63745f517a043337729e4c6e876/jetified-play-services-oss-licenses-16.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a584d63745f517a043337729e4c6e876/jetified-play-services-oss-licenses-16.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad19c6bec2c0b114ef7098f0386ee845/jetified-play-services-oss-licenses-16.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad19c6bec2c0b114ef7098f0386ee845/jetified-play-services-oss-licenses-16.0.2/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-oss-licenses/16.0.2/9a9499c0d47f0cf4b31a43c2890e8472ae49d57b/play-services-oss-licenses-16.0.2-javadoc.jar!/" />
