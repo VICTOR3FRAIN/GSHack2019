@@ -9,6 +9,7 @@ import org.mifos.mobile.ui.activities.AddPersonPreviewActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,9 +50,14 @@ public class TakeSelfieActivity extends BaseActivity {
             //public void onClick(View v) {
                 //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-                String name = "selfservice31";//+Math.random();//txt_Name.getText().toString();
+                Intent intentO = getIntent();
+                String nameValue = intentO.getStringExtra("name");
+
+
+                String name = nameValue; //+Math.random();//txt_Name.getText().toString();
                 Intent intent = new Intent(this, AddPersonPreviewActivity.class);
                 intent.putExtra("Name", name);
+                Log.d("----", name);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 //if(btnTimeManually.isChecked()){
@@ -63,7 +69,6 @@ public class TakeSelfieActivity extends BaseActivity {
                 //if(btnTrainingTest.isChecked()){
                     // Add photos to "Test" folder
                     if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
-
                         Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
                     } else {
                         intent.putExtra("Folder", "Test");
