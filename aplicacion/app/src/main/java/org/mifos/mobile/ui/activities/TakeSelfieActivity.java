@@ -28,7 +28,7 @@ public class TakeSelfieActivity extends BaseActivity {
         setContentView(R.layout.activity_add_person);
         //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-        String name = "selfservice33";//+Math.random();//txt_Name.getText().toString();
+        String name = "selfservice36";//+Math.random();//txt_Name.getText().toString();
         Intent intent = new Intent(this, AddPersonPreviewActivity.class);
         intent.putExtra("Name", name);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

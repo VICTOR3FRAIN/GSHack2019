@@ -131,6 +131,7 @@ public class CompareSelfieActivity extends BaseActivity implements CameraBridgeV
                 faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                 for(int i = 0; i<faces.length; i++){
                     MatOperation.drawRectangleAndLabelOnPreview(imgRgba, faces[i], rec.recognize(images.get(i), ""), front_camera);
+                    Log.i(TAG,"Rostro detectado");
                 }
                 return imgRgba;
             }

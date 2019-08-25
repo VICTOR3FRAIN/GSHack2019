@@ -149,9 +149,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnClick(R.id.btn_login_selfie)
     public void onLoginSelfieClicked() {
         if (Network.isConnected(this)) {
-            //Toaster.show(llLogin, "TOMANDO SELFIE");
-            //loginPresenter.login(username, password);
+            //Se genera otro metodo para hacer el login con el endpoint del backend
+            //El reconocimiento facial genera un booleano y un token para la sesion
             startActivity(new Intent(this, CompareSelfieActivity.class));
+            loginPresenter.loginWithFacialRecognition("selfservice", true);
         } else {
             Toaster.show(llLogin, getString(R.string.no_internet_connection));
         }
