@@ -26,65 +26,42 @@ public class TakeSelfieActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_person);
+        //EditText txt_Name = (EditText)findViewById(R.id.et_email);
 
-        /*final ToggleButton btnTrainingTest = (ToggleButton)findViewById(R.id.btnTrainingTest);
-        final ToggleButton btnReferenceDeviation = (ToggleButton)findViewById(R.id.btnReferenceDeviation);
-        final ToggleButton btnTimeManually = (ToggleButton)findViewById(R.id.btnTimeManually);
-        btnTrainingTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btnTrainingTest.isChecked()){
-                    btnReferenceDeviation.setEnabled(true);
-                } else {
-                    btnReferenceDeviation.setEnabled(false);
-                }
-            }
-        });
+        String name = "selfservice33";//+Math.random();//txt_Name.getText().toString();
+        Intent intent = new Intent(this, AddPersonPreviewActivity.class);
+        intent.putExtra("Name", name);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-         */
+        //if(btnTimeManually.isChecked()){
+        //  intent.putExtra("Method", AddPersonPreviewActivity.MANUALLY);
+        //} else {
+            intent.putExtra("Method", AddPersonPreviewActivity.TIME);
+        //}
 
-        //Button btn_Start = (Button)findViewById(R.id.btn_Start);
-        //btn_Start.setOnClickListener(new View.OnClickListener() {
-          //  @Override
-            //public void onClick(View v) {
-                //EditText txt_Name = (EditText)findViewById(R.id.et_email);
-
-                String name = "selfservice31";//+Math.random();//txt_Name.getText().toString();
-                Intent intent = new Intent(this, AddPersonPreviewActivity.class);
-                intent.putExtra("Name", name);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                //if(btnTimeManually.isChecked()){
-                  //  intent.putExtra("Method", AddPersonPreviewActivity.MANUALLY);
-                //} else {
-                    intent.putExtra("Method", AddPersonPreviewActivity.TIME);
-                //}
-
-                //if(btnTrainingTest.isChecked()){
-                    // Add photos to "Test" folder
-                    if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
-
-                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        intent.putExtra("Folder", "Test");
-                        //if(btnReferenceDeviation.isChecked()){
-                            intent.putExtra("Subfolder", "deviation");
-                        //} else {
-                          //  intent.putExtra("Subfolder", "reference");
-                        //}
-                        startActivity(intent);
-                    }
-                /*} else {
-                    // Add photos to "Training" folder
-
-                    if(isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
-                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        intent.putExtra("Folder", "Training");
-                        startActivity(intent);
-                    }
-                }*/
-            //}
+        //if(btnTrainingTest.isChecked()){
+        // Add photos to "Test" folder
+        if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
+            Toast.makeText(getApplicationContext(), "El usuario ya esta registrado.", Toast.LENGTH_SHORT).show();
+        } else {
+            intent.putExtra("Folder", "Test");
+            //if(btnReferenceDeviation.isChecked()){
+            intent.putExtra("Subfolder", "deviation");
+        //} else {
+        //  intent.putExtra("Subfolder", "reference");
+        //}
+            startActivity(intent);
+        }
+        /*} else {
+               // Add photos to "Training" folder
+        if(isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
+        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
+        } else {
+            intent.putExtra("Folder", "Training");
+        startActivity(intent);
+        }
+        }*/
+        //}
         //});
     }
 
